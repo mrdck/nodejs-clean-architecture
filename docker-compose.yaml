@@ -1,0 +1,18 @@
+version: "3.1"
+
+services:
+  dev:
+    build:
+      context: .
+      dockerfile: docker/dev/Dockerfile
+    volumes:
+      - .:/var/app
+
+  core:
+    build:
+      context: packages/core
+      dockerfile: ../../docker/nodejs/Dockerfile
+    ports:
+      - 3000:3000
+    volumes:
+      - ./packages/core:/var/app
