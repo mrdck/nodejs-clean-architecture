@@ -1,9 +1,14 @@
 import * as express from 'express'
 import * as http from 'http'
 
-import container, { APPLICATION_IDENTIFIER } from '../src/app'
+import { registerAsyncModules } from '../src/utils/registrableAsyncModule'
 
-const app = container.get<express.Application>(APPLICATION_IDENTIFIER)
-const server = http.createServer(app)
+import container, { APPLICATION_IDENTIFIER, CONFIG_IDENTIFIER, Config } from '../src/main'
 
-server.listen(3000)
+registerAsyncModules(container).then(() => {
+  const app = container.get<express.Application>(APPLICATION_IDENTIFIER)
+  const config = container.get<Config>(CONFIG_IDENTIFIER)
+  const server = http.createServer(app)
+
+  server.listen(config.port)
+})

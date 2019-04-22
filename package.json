@@ -6,8 +6,10 @@
   "license": "MIT",
   "scripts": {
     "bootstrap": "lerna bootstrap",
+    "build": "lerna run build --concurrency 3 --stream",
     "lint": "lerna run lint",
-    "test": "lerna run test"
+    "test": "lerna run test",
+    "migration:run": "lerna run migration:run --stream"
   },
   "devDependencies": {
     "lerna": "^3.13.3"
